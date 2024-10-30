@@ -1,9 +1,9 @@
 package com.example.rickandmorty.presentation.viewmodel
 
+import com.example.domain.usecases.CharacterUseCase
+import com.example.presentation.uistate.UiState
+import com.example.presentation.viewmodel.CharactersViewModel
 import com.example.rickandmorty.domain.repository.CharactersTestRepository
-import com.example.rickandmorty.domain.repository.usecase.CharacterUseCase
-import com.example.rickandmorty.presentation.CharactersViewModel
-import com.example.rickandmorty.presentation.uistate.UiState
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,7 +18,7 @@ import org.junit.Before
 import org.junit.Test
 
 class CharactersViewModelTest {
-    private lateinit var useCase: CharacterUseCase
+    private lateinit var useCase: com.example.domain.usecases.CharacterUseCase
     private lateinit var charactersViewModel: CharactersViewModel
     private val testDispatcher = StandardTestDispatcher()
 
@@ -27,7 +27,9 @@ class CharactersViewModelTest {
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         val repository = CharactersTestRepository()
-        useCase = CharacterUseCase(repository)
+        useCase =
+            com.example.domain.usecases
+                .CharacterUseCase(repository)
         charactersViewModel = CharactersViewModel(useCase)
     }
 

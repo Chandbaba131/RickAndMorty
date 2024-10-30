@@ -1,7 +1,7 @@
 package com.example.rickandmorty.domain.usecase
 
+import com.example.domain.usecases.CharacterUseCase
 import com.example.rickandmorty.domain.repository.CharactersTestRepository
-import com.example.rickandmorty.domain.repository.usecase.CharacterUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
@@ -16,7 +16,7 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class CharactersUseCaseTest {
-    private lateinit var useCase: CharacterUseCase
+    private lateinit var useCase: com.example.domain.usecases.CharacterUseCase
     private lateinit var repository: CharactersTestRepository
     private val testDispatcher = StandardTestDispatcher()
 
@@ -24,7 +24,9 @@ class CharactersUseCaseTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         repository = CharactersTestRepository()
-        useCase = CharacterUseCase(repository)
+        useCase =
+            com.example.domain.usecases
+                .CharacterUseCase(repository)
     }
 
     @Test
