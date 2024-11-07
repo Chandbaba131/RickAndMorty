@@ -25,7 +25,7 @@ class CharactersViewModel
             fetchData()
         }
 
-        fun fetchData() {
+    fun fetchData() {
             viewModelScope.launch(Dispatchers.IO) {
                 charactersUseCase
                     .invokeCharacters()
