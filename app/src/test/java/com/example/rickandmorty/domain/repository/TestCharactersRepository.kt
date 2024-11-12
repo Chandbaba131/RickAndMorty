@@ -21,6 +21,8 @@ class TestCharactersRepository {
                         "",
                         "",
                         location = Character.Location("", Location("", "", "")),
+                        Character.Origin("", ""),
+                        episode = listOf(Character.Episode("", "", "")),
                     ),
                 ),
                 GetCharactersQuery.Result(
@@ -36,6 +38,8 @@ class TestCharactersRepository {
                             "",
                             Location("", "", ""),
                         ),
+                        Character.Origin("", ""),
+                        episode = listOf(Character.Episode("", "", "")),
                     ),
                 ),
             )

@@ -36,7 +36,7 @@ class TestCharactersUseCase {
         runTest(testDispatcher) {
             coEvery { repository.getCharacters() } returns testCharactersRepository.getCharacters()
             val expectedCharacters = repository.getCharacters().toList()
-            val result = useCase.invokeCharacters().toList()
+            val result = useCase.invoke().toList()
             assertEquals(expectedCharacters, result)
         }
 

@@ -38,7 +38,7 @@ class CharactersViewModelTest {
     fun testFetchCharacterUpdatesToUi() =
         runTest(testDispatcher) {
             val mockPagingData = testCharactersRepository.getCharacters()
-            coEvery { useCase.invokeCharacters() } returns mockPagingData
+            coEvery { useCase.invoke() } returns mockPagingData
             charactersViewModel.fetchData()
             val job =
                 launch {
@@ -50,7 +50,6 @@ class CharactersViewModelTest {
                                 println(state.data)
                                 assertEquals(mockPagingData, state.data)
                             }
-                            UiState.Empty -> {}
                             is UiState.Error -> {}
                             UiState.Loading -> {}
                         }
