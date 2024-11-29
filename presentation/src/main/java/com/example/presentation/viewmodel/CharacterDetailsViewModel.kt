@@ -22,7 +22,8 @@ class CharacterDetailsViewModel @Inject constructor(private val characterDetails
 
     fun getCharacterDetails(characterId : String){
         viewModelScope.launch(ioDispatcher) {
-          val result = characterDetailsUseCase.invoke(characterId)
+          _characterDetails.emit(UiState.Loading)
+            val result = characterDetailsUseCase.invoke(characterId)
             result.onSuccess {characterDetails->
                 characterNameForTopBar = characterDetails.name?:""
                 _characterDetails.emit(UiState.Success(characterDetails))
