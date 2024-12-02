@@ -7,7 +7,6 @@ import com.example.domain.mapper.CharacterDetailsMapper
 import com.example.domain.usecase.CharacterDetailsUseCase
 import com.example.presentation.uistate.UiState
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,7 +21,8 @@ class CharacterDetailsViewModel @Inject constructor(private val characterDetails
 
     fun getCharacterDetails(characterId : String){
         viewModelScope.launch(ioDispatcher) {
-          val result = characterDetailsUseCase.invoke(characterId)
+          _characterDetails.emit(UiState.Loading)
+            val result = characterDetailsUseCase.invoke(characterId)
             result.onSuccess {characterDetails->
                 characterNameForTopBar = characterDetails.name?:""
                 _characterDetails.emit(UiState.Success(characterDetails))
@@ -35,5 +35,11 @@ class CharacterDetailsViewModel @Inject constructor(private val characterDetails
 
     fun getCharacterName(): String {
         return characterNameForTopBar
+    }
+
+    fun fetchCharacterDetailsIfNeeded(characterId: String) {
+        if (characterDetails.value !is UiState.Success) {
+            getCharacterDetails(characterId)
+        }
     }
 }
